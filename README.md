@@ -10,6 +10,6 @@ The installation will create desktop icons for your use, I haven't actually had 
 it may have been in the prefix creation. It does launch the updater but crashes hard before getting a login
 prompt. 
 I have another installer for Star Trek Fleet Command that works well, this is a work in progress! Use at your 
-own risk. Only problems I ru into is closing the program, that normally results in killing the process. Thinking
-that may be a wine thing? STFC won't shotdown from Lutri either. I Don't generally use Steam put having a nice
+own risk. Only problems I run into is closing the program, that normally results in killing the process. Thinking
+that may be a wine thing? STFC won't shotdown from Lutris either. I Don't generally use Steam but have a nice
 working copy of Falcon BMS on Linux also. Maybe another project some day?
