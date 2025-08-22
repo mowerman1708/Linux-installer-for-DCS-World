@@ -4,7 +4,7 @@ Author: J Ryan Cole
 Date: August 22, 2025
 Version: 1.0
 Description: This script downloads the files needed for DCS install. Creates the wine prefix of you choice. Proceeds to run         the DCS World installer.
-Repository: https://github.com/yourusername/your-repo
+Repository: https://github.com/mowerman1708/Linux-installer-for-DCS-World
 """
 import os
 import subprocess
