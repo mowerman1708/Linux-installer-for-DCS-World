@@ -90,16 +90,6 @@ def update_progress(progress_var, status_bar, progress, message):
 
 #####################################################
 def extract_wine_files(wine_file_path, runner_dir, progress_var, status_bar):
-    """
-    Extracts a .tar.gz or .tar.xz file to the specified directory.
-    Parameters:
-    - wine_file_path: Path to the .tar.gz or .tar.xz file.
-    - runner_dir: Directory where the files will be extracted.
-    - progress_var: Variable to update progress (e.g., for a progress bar).
-    - status_bar: Status bar to update with messages.
-    Returns:
-    - True if extraction is successful, False otherwise.
-    """
     # Check the file type
     file_type = subprocess.run(['file', wine_file_path], capture_output=True, text=True)
     if "gzip compressed data" in file_type.stdout:
@@ -216,6 +206,10 @@ def create_wine_prefix(progress_var, status_bar, root):
         return 1
     # Run winecfg to finalize the setup
     subprocess.run(["winecfg"], env={"WINEPREFIX": wine_prefix_path})
+    """# Set Windows version to Windows 10
+     when running the DCS installer had an error about Windows < 10
+        so lets force it to Windows 10"""
+    subprocess.run(["winecfg", "--set-version", "win10"], env={"WINEPREFIX": wine_prefix_path})
     # Close the created prefix
     subprocess.run(["wineserver", "-k"], env={"WINEPREFIX": wine_prefix_path})
 
