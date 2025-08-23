@@ -9,9 +9,8 @@ if [[ -n $(git status --porcelain) ]]; then
     read -p "Enter commit message: " commit_message
     git commit -m "$commit_message"
 
-    # Push changes to the remote repository
-    git push origin main  # Change 'main' to your branch name if necessary
-
+    # Push the changes repository
+    git push origin main  # needs to match your branch name
     echo "Changes have been pushed to GitHub."
 else
     echo "No changes to commit."
