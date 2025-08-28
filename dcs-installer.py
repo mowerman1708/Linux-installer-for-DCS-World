@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """
-Author: J Ryan Cole
-Date: August 22, 2025
+DCS_Installer.py  Copyright (C) <2025>  J Ryan Cole
+
+Author:  J Ryan Cole
+Date:    August 22, 2025
 Version: 1.0
-Description: This script downloads the files needed for DCS install. Creates the wine prefix of you choice. Proceeds to run         the DCS World installer.
-<<<<<<< HEAD
 Repository: https://github.com/mowerman1708/Linux-installer-for-DCS-World
-=======
-Repository: https://github.com/yourusername/your-repo
->>>>>>> origin/main
+
+Description:    This script downloads the files needed for a DCS installation on GNU/Linux.
+                Creates the wine prefix at your choice of location. Proceeds to run the DCS World installer.
+
 """
 import os
 import subprocess
@@ -159,29 +160,23 @@ def get_the_files(progress_var, status_bar, root):  # check/get the files that a
 def create_wine_prefix(progress_var, status_bar, root):
     global install_dir
     global wine_directory  # Use the global variables
-
     while True:  # Start a loop to keep asking for the directory
         install_dir = filedialog.askdirectory(title='Choose or add your DCS install location',
                                               initialdir=os.path.expanduser("~"))
         if not install_dir:
             messagebox.showwarning("Warning", "No installation directory selected.")
             return
-
         wine_prefix_path = install_dir  # Set the wine prefix path
-
         if os.path.exists(wine_prefix_path) and not messagebox.askyesno("Overwrite Existing Prefix",
                 f"Wine prefix already exists at: {wine_prefix_path}.\nDo you want to overwrite it?"):
             # If the user chooses not to overwrite, continue the loop to ask for a new directory
             continue  # This will go back to the start of the while loop
-
         # If we reach here, either the prefix does not exist or the user chose to overwrite
         break  # Exit the loop
-
     os.makedirs(wine_prefix_path, exist_ok=True)
     runner_dir = os.path.join(install_dir, "runner")
     os.makedirs(runner_dir, exist_ok=True)
     wine_file_path = os.path.join(script_dir, "tmp", wine_file)
-
     try:
         update_progress(progress_var, status_bar, 10, "Extracting Wine files...")
         # Step 1: Extract Wine files
@@ -189,7 +184,6 @@ def create_wine_prefix(progress_var, status_bar, root):
         if not success:
             update_progress(progress_var, status_bar, 100, "Extraction failed.")
             return 1
-
         # Setup wine environment variables
         update_progress(progress_var, status_bar, 50, "Setting environment variables...")
         os.environ["WINEPREFIX"] = wine_prefix_path
@@ -202,20 +196,12 @@ def create_wine_prefix(progress_var, status_bar, root):
             messagebox.showerror("Error", "winetricks is not installed. Please install it before proceeding.")
             return 1
         # Now run wintricks
-        subprocess.run(["winetricks", "-q", "corefonts", "oleaut32", "vcrun2015", "dxvk", "d3dcompiler_43", "d3dcompiler_47", "vcrun2017","d3dx9", "win10"])
+        subprocess.run(["winetricks", "-q", "corefonts", "oleaut32", "vcrun2017", "dxvk", "d3dcompiler_43",        "d3dcompiler_47", "d3dx9", "win10"])
         update_progress(progress_var, status_bar, 100, f"Wine prefix created successfully at {wine_prefix_path}")
-
     except subprocess.CalledProcessError as e:  #something failed
         messagebox.showerror("Error", f"Failed to set up Wine prefix: {e}")
         update_progress(progress_var, status_bar, 0, "Error occurred during Wine prefix setup.")
         return 1
-    # Run winecfg to finalize the setup
-    subprocess.run(["winecfg"], env={"WINEPREFIX": wine_prefix_path})
-    """# Set Windows version to Windows 10
-     when running the DCS installer had an error about Windows < 10
-        so lets force it to Windows 10"""
-    subprocess.run(["winecfg", "--set-version", "win10"], env={"WINEPREFIX": wine_prefix_path})
-
     # Close the created prefix
     subprocess.run(["wineserver", "-k"], env={"WINEPREFIX": wine_prefix_path})
 
@@ -232,7 +218,7 @@ def run_dcs_installer(wine_path, install_dir, progress_var, status_bar, root):
             [os.path.join(wine_path, 'wine'), dcs_installer_path],
             capture_output=True,
             check=True,
-            env={**os.environ, "WINEDEUG": "+ALL"})
+            env={**os.environ, "WINEDEUG": "+ALL"}) #<<<<< debugging on
 
         update_progress(progress_var, status_bar, 100, "DCS installation completed successfully.")
     except subprocess.CalledProcessError as e:
