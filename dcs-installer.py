@@ -218,7 +218,6 @@ def run_dcs_installer(wine_path, install_dir, progress_var, status_bar, root):
             [os.path.join(wine_path, 'wine'), dcs_installer_path],
             capture_output=True,
             check=True,
-            env={**os.environ, "WINEDEUG": "+ALL"}) #<<<<< debugging on
 
         update_progress(progress_var, status_bar, 100, "DCS installation completed successfully.")
     except subprocess.CalledProcessError as e:
@@ -299,10 +298,10 @@ def create_gui():
         run_dcs_installer(wine_path, install_dir, progress_var, status_bar, root)
         button3.config(state=tk.DISABLED)  # Disable button 3 after use
 
-    button1 = create_button_with_tooltip("1. Download Necessary Files", lambda: run_task(run_get_the_files, button1), "Download required files for DCS.")
-    button2 = create_button_with_tooltip("2. Create Wine Prefix", lambda: run_task(run_create_wine_prefix, button2), "Set up a Wine prefix for DCS.")
-    button3 = create_button_with_tooltip("3. Install DCS", lambda: run_task(run_installer, button3), "Install the DCS game.")
-    button_exit = create_button_with_tooltip("Exit", root.quit, "Close the application.")
+    button1 = create_button_with_tooltip("1. Download Necessary Files", lambda: run_task(run_get_the_files, button1), "Download required files for DCS")
+    button2 = create_button_with_tooltip("2. Create Wine Prefix", lambda: run_task(run_create_wine_prefix, button2), "Set up a Wine prefix for DCS")
+    button3 = create_button_with_tooltip("3. Install DCS", lambda: run_task(run_installer, button3), "Run the DCS installer")
+    button_exit = create_button_with_tooltip("Exit", root.quit, "Close the application")
     button2.config(state=tk.DISABLED)  # Disable button 2 initially
     button3.config(state=tk.DISABLED)  # Disable button 3 initially
     status_bar = tk.Label(root, text="Ready", bd=1, relief=tk.SUNKEN, anchor=tk.CENTER, font=("Arial", 11, "bold"))
