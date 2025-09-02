@@ -217,7 +217,8 @@ def run_dcs_installer(wine_path, install_dir, progress_var, status_bar, root):
         result = subprocess.run(
             [os.path.join(wine_path, 'wine'), dcs_installer_path],
             capture_output=True,
-            check=True,
+            check=True
+            )
 
         update_progress(progress_var, status_bar, 100, "DCS installation completed successfully.")
     except subprocess.CalledProcessError as e:
@@ -334,7 +335,6 @@ def create_gui():
         global is_blinking
         is_blinking = False  # Set blinking flag to False
         busy_label['foreground'] = 'green'  # Ensure the label is green when stopping
-        # Status bar
 
     root.mainloop()
 
