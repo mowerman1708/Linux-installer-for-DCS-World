@@ -85,10 +85,9 @@ def main():
     button_properties = {
         'bg': '#2E2E2E',
         'fg': 'lightgray',
-        'width': 20  # Set a fixed width for all buttons
+        'width': 20  # fixed width for all buttons
     }
 
-    # Create buttons for each action
     btn_check_status = tk.Button(
         root,
         text="Check Status",
@@ -121,7 +120,7 @@ def main():
     )
     btn_push_changes.pack(pady=5)
 
-    # Create a scrolled text area for output
+    # Text area for output of commands
     output_text = scrolledtext.ScrolledText(
         root,
         width=80,
